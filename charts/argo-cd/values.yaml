@@ -9,8 +9,8 @@ installCRDs: true
 
 global:
   image:
-    repository: quay.io/argoproj/argocd
-    tag: v2.0.0
+    repository: bolatov/argocd-helmfile
+    tag: v2.0.1
     imagePullPolicy: IfNotPresent
   securityContext: {}
   #  runAsUser: 999
