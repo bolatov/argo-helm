@@ -564,6 +564,14 @@ server:
   ## reference https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
   configEnabled: true
   config:
+    configManagementPlugins: |
+    - name: helmfile
+      init:
+        command: ["/bin/sh", "-c"]
+        args: ["helmfile --namespace $ARGOCD_APP_NAMESPACE apply"]
+      generate:
+        command: ["/bin/sh", "-c"]
+        args: ["helmfile --namespace $ARGOCD_APP_NAMESPACE template | sed -e '1,/---/d' | sed -e 's|apiregistration.k8s.io/v1beta1|apiregistration.k8s.io/v1|g'"]
     # Argo CD's externally facing base URL (optional). Required when configuring SSO
     url: https://argocd.example.com
     # Argo CD instance label key
